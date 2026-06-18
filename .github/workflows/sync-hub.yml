@@ -1,0 +1,22 @@
+name: Sync to Zero-Skills-Hub
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**/SKILL.md'
+      - 'README.md'
+
+jobs:
+  trigger-hub-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Hub rebuild via repository_dispatch
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.HUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/jeekeagle/Zero-Skills-Hub/dispatches \
+            -d '{"event_type": "sync-skills", "client_payload": {"source": "zero-skills", "sha": "${{ github.sha }}"}}'
+          echo "✅ Hub rebuild triggered at $(date -u +%FT%TZ)"
