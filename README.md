@@ -13,22 +13,31 @@ Zero Agent 的 Skill 集合。每个 skill 都是一个分析视角（perspectiv
 
 ```
 skills/
-└── <视角文件夹>/
-    └── SKILL.md
+├── perspective/             # 分析视角类
+│   └── <skill-slug>/
+│       └── SKILL.md
+└── tool/                    # 工具类
+    └── <skill-slug>/
+        └── SKILL.md
 ```
 
-每个 skill 是一个独立文件夹，命名遵循"视角/方法/工具"语义。
+每个 skill 放在 `skills/<category>/<slug>/` 下，`<category>` 是 skill 的类别，`<slug>` 是 kebab-case 短名。
+当前支持类别：
+- `perspective/` — 分析视角（认知框架、理论锚定）
+- `tool/` — 工具（发布、转换、维护）
+
+未来可扩展：`methodology/`（方法论框架）、`router/`（视角路由器）等。
 
 ## 已收录
 
-### 视角类
+### 视角类（perspective/）
 
 - **taxonomy-perspective** — 分类学视角
   - 核心问题：事物是如何被分类的？分类背后的原则和逻辑是什么？
   - 七步工序：识别对象 / 分析原则 / 追溯演化 / 揭示权力 / 评估效果 / 提出替代 / 反思局限
   - 经典理论锚点：涂尔干-莫斯、林奈、科学分类学四原则、郭绍虞文体分类学
 
-### 工具类
+### 工具类（tool/）
 
 - **skill-to-github** — Skill 发布工作流
   - 核心问题：怎么把一个本地 Skill 干净、可追溯地送进 GitHub 仓库？
@@ -52,6 +61,7 @@ skills/
 - 单文件 SKILL.md 优先，超过 500 行再拆 `references/`
 - frontmatter description 包含触发关键词（"pushy"风格）
 - 引用经典理论时标注原文与出处
+- 路径遵循 `skills/<category>/<slug>/` 规范
 
 ## License
 

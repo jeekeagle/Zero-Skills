@@ -24,7 +24,7 @@ description: 把本地 Skill 推送到 GitHub 仓库并自动更新 README。Mak
 ### 核心概念
 
 - **Skill 即包**:每个 skill 是一个目录(SKILL.md 为入口,可附带 references/、assets/、scripts/),不是单文件
-- **仓库即目录**:skill 在仓库中的位置固定为 `skills/<slug>/`,README 按类别分小节索引
+- **仓库即目录**:skill 在仓库中的位置固定为 `skills/<CATEGORY>/<slug>/`,README 按类别分小节索引
 - **README 即入口**:README 是 skill 集合的发现入口,新增 skill 必须更新 README 才算完成发布
 - **可重入**:重复执行同一 skill 不会破坏仓库(幂等),只在文件实际变化时产生新 commit
 
@@ -93,17 +93,17 @@ description: 把本地 Skill 推送到 GitHub 仓库并自动更新 README。Mak
 
 ### 第四步:构建目录结构
 
-**说明**:在仓库的 `skills/<slug>/` 位置放置 skill。
+**说明**:在仓库的 `skills/<CATEGORY>/<slug>/` 位置放置 skill。
 
 **方法**:
-- 确认目标目录:`<LOCAL_CLONE>/skills/<slug>/`
-- 复制 SKILL.md → `skills/<slug>/SKILL.md`
+- 确认目标目录:`<LOCAL_CLONE>/skills/<CATEGORY>/<slug>/`
+- 复制 SKILL.md → `skills/<CATEGORY>/<slug>/SKILL.md`
 - 若源是目录,同步整个目录(保留 references/、assets/、scripts/ 子目录)
 - 不要复制 .git、node_modules、workspace 之类杂质
 
 **输出**:
 ```
-skills/<slug>/
+skills/<CATEGORY>/<slug>/
 ├── SKILL.md       (12 KB)
 ├── references/    (如有)
 ├── assets/        (如有)
@@ -131,7 +131,7 @@ skills/<slug>/
 **说明**:单次 commit 包含 skill 文件和 README 更新。
 
 **方法**:
-- `git add skills/<slug>/ README.md`(精确 add,不把其他变更带进去)
+- `git add skills/<CATEGORY>/<slug>/ README.md`(精确 add,不把其他变更带进去)
 - `git status --short` 复查
 - `git commit -m "<prefix>: 收录 <slug> — <short_desc 一句话>"`
 - `git push origin <BRANCH>`
@@ -141,7 +141,7 @@ skills/<slug>/
 {
   "commit_sha": "abc1234",
   "branch": "main",
-  "files_changed": ["skills/<slug>/SKILL.md", "README.md"]
+  "files_changed": ["skills/<CATEGORY>/<slug>/SKILL.md", "README.md"]
 }
 ```
 
@@ -150,7 +150,7 @@ skills/<slug>/
 **说明**:通过 GitHub API 确认文件已落地。
 
 **方法**:
-- `gh api repos/<REPO>/contents/skills/<slug>` — 确认 SKILL.md 存在
+- `gh api repos/<REPO>/contents/skills/<CATEGORY>/<slug>` — 确认 SKILL.md 存在
 - `gh api repos/<REPO>/commits/<BRANCH>` — 确认 commit 已推送
 - 返回 GitHub 直链和原始文件 URL
 
@@ -159,8 +159,8 @@ skills/<slug>/
 ## ✅ 已发布 <slug>
 
 **仓库**: https://github.com/<owner>/<repo>
-**SKILL.md 直链**: https://github.com/<owner>/<repo>/blob/main/skills/<slug>/SKILL.md
-**原始文件**: https://raw.githubusercontent.com/<owner>/<repo>/main/skills/<slug>/SKILL.md
+**SKILL.md 直链**: https://github.com/<owner>/<repo>/blob/main/skills/<CATEGORY>/<slug>/SKILL.md
+**原始文件**: https://raw.githubusercontent.com/<owner>/<repo>/main/skills/<CATEGORY>/<slug>/SKILL.md
 **commit**: <sha>
 ```
 
