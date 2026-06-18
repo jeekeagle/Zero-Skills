@@ -206,6 +206,8 @@ skills/<CATEGORY>/<slug>/
   - 对策:commit message 第一行 ≤ 72 字符,只保留一句话核心
 - **错误 6:推送到错分支** — 仓库默认分支可能不是 main
   - 对策:用 `gh repo view --json defaultBranchRef` 查,推送用 `git push origin <branch>`
+- **错误 7:memory ID 引用噪声** — 在正文中写 `[[b6507ee0]]` 之类的 memory 索引引用
+  - 对策:这些 ID 对读者没有意义,引用经典理论时直接写理论名和原文,不要再带 ID
 
 ## 工具与依赖
 
