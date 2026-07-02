@@ -21,8 +21,12 @@ skills/
 │       ├── SKILL.md
 │       └── examples/        # 示范输出
 └── tool/                    # 工具类
-    └── <skill-slug>/
-        └── SKILL.md
+    ├── <skill-slug>/        # 通用工具
+    │   └── SKILL.md
+    └── wuji/                # wuji-博客系列专用工具
+        └── <skill-slug>/
+            ├── SKILL.md
+            └── references/  # 长文档 / 操作手册
 ```
 
 每个 skill 放在 `skills/<category>/<slug>/` 下，`<category>` 是 skill 的类别，`<slug>` 是 kebab-case 短名。
@@ -52,6 +56,7 @@ skills/
 
 ### 工具类（tool/）
 
+- **post-to-wujiblog** — 发布文章到 jeekeagle/wuji-blog（含 frontmatter 校验、UTC 时间换算、Deploy 三件套、git push 降级路径）
 - **skill-to-github** — Skill 发布工作流
   - 核心问题：怎么把一个本地 Skill 干净、可追溯地送进 GitHub 仓库？
   - 七步工序：确认输入 / 解析 SKILL.md / 检查仓库状态 / 构建目录 / 更新 README / 提交推送 / 验证交付
